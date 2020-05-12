@@ -1,13 +1,17 @@
-# readline_test.py
-# 정규식 사용
-import re
+import re  # 정규식 사용
+import shutil  # 셸 유틸리티
 
 # 어떤 파일 열지 입력 (추후에 파일탐색기?)
 FILE_PATH = input("검사할 파일명을 입력하세요: ")
 
-f = open(FILE_PATH, 'r', encoding='UTF8')
+# 복사
+shutil.copy(FILE_PATH + '.txt', FILE_PATH + '(masked).txt')
+            
+#f = open(FILE_PATH+'.txt', 'r', encoding='UTF8')
+newf = open(FILE_PATH + '(masked).txt', 'r+', encoding='UTF8')
+
 while True:
-    line = f.readline()
+    line = newf.readline()
     if not line: break
     data = line
 
@@ -28,24 +32,16 @@ while True:
         mask = input("주민등록번호 패턴이 탐지되었습니다. "+Nm.group()+"\n주민등록번호를 마스킹하시겠습니까? (Y/N)\n")
         if mask=='y':
             print(Npat.sub("\g<birth>-*******", data))
-        else:
-            print(data)
             
     elif Pm: # 여권번호 패턴일 때
         mask = input("여권번호 패턴이 탐지되었습니다. " + Pm.group()+"\n여권번호를 마스킹하시겠습니까? (Y/N)\n")
         if mask=='y':
             print(Ppat.sub("\g<Ptype>*******", data))
-        else:
-            print(data)
 
     elif Dm: # 운전면허번호 패턴일 때
         mask = input("운전면허번호 패턴이 탐지되었습니다. "+Dm.group()+"\n운전면허번호를 마스킹하시겠습니까? (Y/N)\n")
         if mask=='y':
             print(Dpat.sub("**-**-******-**", data))
-        else:
-            print(data)
-            
 
-            
-    
-f.close()
+newf.close()    
+#f.close()

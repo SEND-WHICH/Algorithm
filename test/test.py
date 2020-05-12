@@ -2,7 +2,10 @@
 # 정규식 사용
 import re
 
-f = open("텍스트 문서 test.txt", 'r', encoding='UTF8')
+# 어떤 파일 열지 입력 (추후에 파일탐색기?)
+FILE_PATH = input("검사할 파일명을 입력하세요: ")
+
+f = open(FILE_PATH, 'r', encoding='UTF8')
 while True:
     line = f.readline()
     if not line: break

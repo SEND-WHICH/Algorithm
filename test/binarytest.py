@@ -1,14 +1,14 @@
-try:
-    file = open('test.txt','rb')
-    while True:
-        temp = file.read(1)
-        if temp == '' : break
-        ## temp type 'bytes'
-        print("%02x "% ord(temp),end='')
-        ##ex) ord('a') -> 97 chr(97) -> 'a'
-    file.close()
-except IOError:
-    print("IO error")
+# try:
+#     file = open('test.txt','rb')
+#     while True:
+#         temp = file.read(1)
+#         if temp == '' : break
+#         ## temp type 'bytes'
+#         print("%02x "% ord(temp),end='')
+#         ##ex) ord('a') -> 97 chr(97) -> 'a'
+#     file.close()
+# except IOError:
+#     print("IO error")
 #
 # import re  # 정규식 사용
 # import shutil  # 셸 유틸리티

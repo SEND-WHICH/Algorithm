@@ -5,8 +5,8 @@ with open("test.bin", "wb") as f:
     f.write(bytes(data))
 '''
 # 바이너리 읽기
-#with open("word.docx", "rb") as f:
-with open("hwp.hwp", "rb") as f:
+#with open("test.bin", "rb") as f:
+with open("word.docx", "rb") as f:
     content = f.read()  # 모두 읽음
     print(type(content))  # bytes class
     for b in content:

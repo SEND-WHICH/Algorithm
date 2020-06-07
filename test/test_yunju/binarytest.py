@@ -55,16 +55,16 @@
 #             print(Dpat.sub("**-**-******-**", data))
 #
 # newf.close()
-
+import io
+import os
+import csv
 import re  # 정규식 사용
 
 # text 읽기
-file0 = open('test.txt', 'rb')
-text = file0.read()
-file0.close()
 file1 = open('test.docx', 'rb')
 
-text = file1.read()
+#text = file1.read()
+text=file1.read().decode('UTF-8','ignore')
 print(text)
 text = str(text)
 Ppat = re.compile("\x39\x38\x30\x33\x30\x35\x2d\x31\x32\x33\x34\x35\x36\x37")

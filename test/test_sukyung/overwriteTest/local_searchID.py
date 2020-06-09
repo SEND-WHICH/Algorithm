@@ -4,6 +4,9 @@ import re  # 정규식 사용
 import shutil  # 셸 유틸리티
 
 # 어떤 파일 열지 입력 (json으로 받아오기)
+FILE_PATH = input("검사할 파일명을 입력하세요: ")
+
+'''
 # json 파일 이름: example
 with open('example.json') as json_file:
     json_data = json.lead(json_file)
@@ -15,13 +18,19 @@ with open('example.json') as json_file:
     fileType = title.split('.')[1]
     print(fileTitle)
     print(fileType)
+'''
 
+# 확장자명(fileType)과 순수 파일명(fileTitle)으로 나누기
+fileTitle = FILE_PATH.split('.')[0]
+fileType = FILE_PATH.split('.')[1]
+    
 # 복사
 shutil.copy(fileTitle+'.'+fileType, fileTitle + '(masked).' + fileType)
 
-
 # 복사한 파일 이름을 매개변수에 저장     
 fname = fileTitle + '(masked).' + fileType
+
+
 
 # 개인정보 횟수 카운트 변수 선언하고 초기화
 numID = 0 #주민등록번호 카운트

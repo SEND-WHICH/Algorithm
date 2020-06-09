@@ -6,17 +6,41 @@ FILE_PATH = input("검사할 파일명을 입력하세요: ")
 
 # 복사
 shutil.copy(FILE_PATH + '.txt', FILE_PATH + '(masked).txt')
-            
+
+# 복사한 파일 이름을 매개변수에 저장     
 fname = FILE_PATH + '(masked).txt'
 
+# 읽기 모드에서 파일 열고 내용을 목록으로 복사하기
 with open(fname, 'r', encoding='UTF8') as f:
     newline=[]
     for Word in f.readlines():
-        newline.append(Word.replace("f", "바뀜"))
+        
+        #주민번호 패턴 탐지
+        patternID = re.compile("(?P<birth>\d{6})[-](?P<maskID>\d{7})")
+        msgID = patternID.search(Word)
 
+        # 주민번호 패턴일 때
+        if msgID:
+            mask = input("주민등록번호 패턴이 탐지되었습니다. "+msgID.group()+"\n주민등록번호를 마스킹하시겠습니까? (Y/N)\n")
+            if mask=='y':
+                print(patternID.sub("\g<birth>-*******", msgID.group()))
+                newline.append(Word.replace(msgID.group(), patternID.sub("\g<birth>-*******", msgID.group())))
+            else :
+                newline.append(Word)
+        else :
+            newline.append(Word)
+        
+        #newline.append(Word.replace("f", "바뀜"))
+
+# 쓰기 모드에서 파일 열고 업데이트 된 데이터 파일에 쓰기
 with open(fname, 'w', encoding='UTF8') as f:
     for line in newline:
         f.writelines(line)
+
+
+# 참고 사이트
+# https://www.it-swarm.dev/ko/python/python%EC%97%90%EC%84%9C-%ED%85%8D%EC%8A%A4%ED%8A%B8-%ED%8C%8C%EC%9D%BC%EC%9D%98-%ED%8A%B9%EC%A0%95-%EC%A4%84-%ED%8E%B8%EC%A7%91/971925982/
+
 
 
 

@@ -5,8 +5,6 @@ import shutil  # 셸 유틸리티
 import json #json 임포트
 
 # 어떤 파일 열지 입력 (json으로 받아오기)
-FILE_PATH = input("검사할 파일명을 입력하세요: ")
-
 # json 파일 이름: example
 with open('example.json') as json_file:
     json_data = json.lead(json_file)
@@ -20,7 +18,7 @@ with open('example.json') as json_file:
     print(fileType)
 
 # 복사
-shutil.copy(fileTitle + '(masked).' + fileType)
+shutil.copy(fileTitle+'.'+fileType, fileTitle + '(masked).' + fileType)
 
 # 복사한 파일 이름을 매개변수에 저장     
 fname = fileTitle + '(masked).' + fileType

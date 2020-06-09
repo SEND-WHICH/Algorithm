@@ -1,3 +1,5 @@
+''' 실제 test용 파일: 파일에 대해서 개인정보 검사하고 뭐뭐 나왔나 string에 저장 '''
+
 import re  # 정규식 사용
 import shutil  # 셸 유틸리티
 
@@ -9,9 +11,6 @@ shutil.copy(FILE_PATH + '.txt', FILE_PATH + '(masked).txt')
 
 # 복사한 파일 이름을 매개변수에 저장     
 fname = FILE_PATH + '(masked).txt'
-
-# 개인정보 개수 위한 변수 초기화
-numID = 0
 
 # 읽기 모드에서 파일 열고 내용을 목록으로 복사하기
 with open(fname, 'r', encoding='UTF8') as f:

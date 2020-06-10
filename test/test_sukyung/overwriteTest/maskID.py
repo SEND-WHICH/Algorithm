@@ -6,11 +6,11 @@ import json #json 임포트
 
 # 어떤 파일 열지 입력 (json으로 받아오기)
 # json 파일 이름: example
-with open('example.json') as json_file:
-    json_data = json.lead(json_file)
+with open('./views/example.json') as json_file:
+    json_data = json.load(json_file)
     # key가 json_title인 문자열 가져오기 (json_title: 검사 파일 이름)
     title = json_data["json_title"]
-    print(json_string)
+    print(title)
     # 확장자명(fileType)과 순수 파일명(fileTitle)으로 나누기
     fileTitle = title.split('.')[0]
     fileType = title.split('.')[1]

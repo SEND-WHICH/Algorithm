@@ -2,6 +2,7 @@
 
 import re  # 정규식 사용
 import shutil  # 셸 유틸리티
+#import pdftotext # pdf 라이브러리
 
 # 어떤 파일 열지 입력 (json으로 받아오기)
 FILE_PATH = input("검사할 파일명을 입력하세요: ")
@@ -48,11 +49,11 @@ with open(fname, 'r', encoding='UTF8') as f:
 
         #여권번호 패턴 탐지
         patternPP = re.compile("(?P<Ptype>[a-zA-Z])\d{7}")
-        msgPP = patternID.search(Word)
+        msgPP = patternPP.search(Word)
 
         #운전면허번호 패턴 탐지
         patternD = re.compile("(\d{2})[-]\d{2}[-]\d{6}[-]\d{2}")
-        msgD = patternID.search(Word)
+        msgD = patternD.search(Word)
 
 
         # 주민번호 패턴일 때
@@ -71,16 +72,12 @@ with open(fname, 'r', encoding='UTF8') as f:
 result = '< 탐지된 개인정보 목록 >\n'
 if numID > 0:
     result += "주민등록번호: " + str(numID) + "개\n"
-     #print("주민등록번호: " + str(numID) + "개")
 if numPP > 0:
     result += "여권번호: " + str(numPP) + "개\n"
-     #print("여권번호: " + str(numPP) + "개")
 if numD > 0:
     result += "운전면허번호: " + str(numD) + "개\n"
-     #print("운전면허번호: " + str(numD) + "개")
 if numID == 0 and numPP == 0 and numD == 0:
     result += "탐지된 개인정보가 없습니다."
-     #print("탐지된 개인정보가 없습니다.")
 
 print(result)
         

@@ -25,6 +25,8 @@ with open('example.json') as json_file:
 # 확장자명(fileType)과 순수 파일명(fileTitle)으로 나누기
 fileTitle = FILE_PATH.split('.')[0]
 fileType = FILE_PATH.split('.')[1]
+
+#fileType에 따른 라이브러리 모듈 실행(이 경우 아래는 X) -> 나중에
     
 # 복사
 shutil.copy(fileTitle+'.'+fileType, fileTitle + '(masked).' + fileType)
@@ -38,15 +40,80 @@ with open(fname, 'r', encoding='UTF8') as f:
     for Word in f.readlines():
         
         #주민번호 패턴 탐지
-        patternID = re.compile("(?P<birth>\d{6})[-](?P<maskID>\d{7})")
+        patternID = re.compile("(?P<ID>\d{6}[-][1-4])(?P<maskID>\d{6})")
         msgID = patternID.search(Word)
 
-        # 주민번호 패턴일 때
-        if msgID:
-            print(patternID.sub("\g<birth>-*******", msgID.group()))
-            newline.append(Word.replace(msgID.group(), patternID.sub("\g<birth>-*******", msgID.group())))
+        #여권번호 패턴 탐지
+        patternPP = re.compile("(?P<PP>[a-zA-Z])\d{7}")
+        msgPP = patternPP.search(Word)
+
+        #운전면허번호 패턴 탐지
+        patternD = re.compile("(?P<D>\d{2}[-]\d{2})[-](?P<maskD>\d{6}[-]\d{2})")
+        msgD = patternD.search(Word)
+        
+        #핸드폰번호 패턴 탐지
+        patternP = re.compile("(?P<P>\D\d{3})[-]\d{4}[-]\d{4}")
+        msgP = patternP.search(Word)
+
+        #외국인등록번호 패턴 탐지
+        patternF = re.compile("(?P<F>\d{6}[-][5-6])(?P<maskID>\d{6})")
+        msgF = patternF.search(Word)
+        
+        #신용카드번호 패턴 탐지
+        patternC = re.compile("(?P<C>\d{4})[-]\d{4}[-]\d{4}[-]\d{4}")
+        msgC = patternC.search(Word)
+        
+        #건강보험번호 패턴 탐지
+        patternHI = re.compile("(?P<HI>\D\d{1}[-])\d{9}")
+        msgHI = patternHI.search(Word)
+
+        '''
+        #계좌번호 패턴 탐지
+        patternA = re.compile("너무 경우가 많아서 나중에할래")
+        msgA = patternA.search(Word)
+        '''
+        
+
+        '''_______________마스킹________________'''
+
+        if msgID:   # 주민번호 패턴일 때
+            print(patternID.sub("\g<ID>******", msgID.group()))
+            newline.append(Word.replace(msgID.group(), patternID.sub("\g<ID>******", msgID.group())))
+            
+        elif msgPP: # 여권번호 패턴일 때
+            print(patternPP.sub("\g<PP>*******", msgPP.group()))
+            newline.append(Word.replace(msgPP.group(), patternPP.sub("\g<PP>*******", msgPP.group())))
+            
+        elif msgD: # 운전면허번호 패턴일 때
+            print(patternD.sub("\g<D>-******-**", msgD.group()))
+            newline.append(Word.replace(msgD.group(), patternD.sub("\g<D>-******-**", msgD.group())))
+
+        elif msgP: # 핸드폰번호 패턴일 때
+            print(patternP.sub("\g<P>-****-****", msgP.group()))
+            newline.append(Word.replace(msgP.group(), patternP.sub("\g<P>-****-****", msgP.group())))
+             
+        elif msgF: # 외국인등록번호 패턴일 때
+            print(patternF.sub("\g<F>******", msgF.group()))
+            newline.append(Word.replace(msgF.group(), patternF.sub("\g<F>******", msgF.group())))
+            
+        elif msgC: # 신용카드번호 패턴일 때
+            print(patternC.sub("\g<C>****-****", msgC.group()))
+            newline.append(Word.replace(msgC.group(), patternC.sub("\g<C>-****-****-****", msgC.group())))
+            
+        elif msgHI: # 건강보험번호 패턴일 때
+            print(patternHI.sub("\g<HI>*********", msgHI.group()))
+            newline.append(Word.replace(msgHI.group(), patternHI.sub("\g<HI>*********", msgHI.group())))
+          
         else :
             newline.append(Word)
+            
+        '''            
+          
+        elif msgA: # 계좌번호 패턴일 때
+            print(patternA.sub("\g<>", msgA.group()))
+            newline.append(Word.replace(msgA.group(), patternA.sub("\g<>", msgA.group())))
+        '''
+        
         
 
 # 쓰기 모드에서 파일 열고 업데이트 된 데이터 파일에 쓰기

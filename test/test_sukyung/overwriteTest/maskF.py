@@ -29,19 +29,21 @@ with open(fname, 'r', encoding='UTF8') as f:
     newline=[]
     for Word in f.readlines():
         
-        #주민번호 패턴 탐지
-        patternID = re.compile("(?P<ID>\d{6}[-][1-4])(?P<maskID>\d{6})")
-        msgID = patternID.search(Word)
+        
+        #외국인등록번호 패턴 탐지
+        patternF = re.compile("(?P<F>\d{6}[-][5-6])(?P<maskID>\d{6})")
+        msgF = patternF.search(Word)
+       
+        
 
+        '''_______________마스킹________________'''
 
-        if msgID:   # 주민번호 패턴일 때
-            print(patternID.sub("\g<ID>******", msgID.group()))
-            newline.append(Word.replace(msgID.group(), patternID.sub("\g<ID>******", msgID.group())))
-         
+        if msgF: # 외국인등록번호 패턴일 때
+            print(patternF.sub("\g<F>******", msgF.group()))
+            newline.append(Word.replace(msgF.group(), patternF.sub("\g<F>******", msgF.group())))
+            
         else :
             newline.append(Word)
-            
-        
         
 
 # 쓰기 모드에서 파일 열고 업데이트 된 데이터 파일에 쓰기

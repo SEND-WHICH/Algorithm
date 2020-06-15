@@ -26,27 +26,53 @@ fname = fileTitle + '(masked).' + fileType
 # 개인정보 횟수 카운트 변수 선언하고 초기화
 numID = 0 #주민등록번호 카운트
 numPP = 0 #여권번호 카운트
-numD = 0 #운전면허번호 카운
+numD = 0 #운전면허번호 카운트
+numPH = 0 #핸드폰번호 카운트
+numF = 0 #외국인등록번호 카운트
+numC = 0 #신용카드번호 카운트
+numHI = 0 #건강보험번호 카운트
+numA = 0 #계좌번호 카운
 
 # 읽기 모드에서 파일 열고 내용을 목록으로 복사하기
 with open(fname, 'r', encoding='UTF8') as f:
     newline=[]
     for Word in f.readlines():
-        
+
+        '''_________________패턴 탐지_________________ '''
         #주민번호 패턴 탐지
         patternID = re.compile("(?P<birth>\d{6})[-](?P<maskID>\d{7})")
         msgID = patternID.search(Word)
 
         #여권번호 패턴 탐지
-        patternPP = re.compile("(?P<Ptype>[a-zA-Z])\d{7}")
+        patternPP = re.compile("[a-zA-Z]{2}[-~.[:space:]][0-9]{7}")
         msgPP = patternID.search(Word)
 
         #운전면허번호 패턴 탐지
         patternD = re.compile("(\d{2})[-]\d{2}[-]\d{6}[-]\d{2}")
         msgD = patternID.search(Word)
+'''
+        #핸드폰번호 패턴 탐지
+        patternD = re.compile("(\d{2})[-]\d{2}[-]\d{6}[-]\d{2}")
+        msgD = patternID.search(Word)
 
+        #외국인등록번호 패턴 탐지
+        patternD = re.compile("(\d{2})[-]\d{2}[-]\d{6}[-]\d{2}")
+        msgD = patternID.search(Word)
 
-        # 주민번호 패턴일 때
+        #신용카드번호 패턴 탐지
+        patternD = re.compile("(\d{2})[-]\d{2}[-]\d{6}[-]\d{2}")
+        msgD = patternID.search(Word)
+
+        #건강보험번호 패턴 탐지
+        patternD = re.compile("(\d{2})[-]\d{2}[-]\d{6}[-]\d{2}")
+        msgD = patternID.search(Word)
+
+        #계좌번호 패턴 탐지
+        patternD = re.compile("(\d{2})[-]\d{2}[-]\d{6}[-]\d{2}")
+        msgD = patternID.search(Word)
+'''
+
+        '''_________________패턴 마스킹_________________ '''
         if msgID:
             numID += 1
 
@@ -56,7 +82,7 @@ with open(fname, 'r', encoding='UTF8') as f:
         if msgD:
             numD += 1
 
-
+'''
 # 검사 종료 후 결과 출력 (result: 문자열 저장)
  #print("< 탐지된 개인정보 목록 >")
 result = '< 탐지된 개인정보 목록 >\n'
@@ -74,7 +100,7 @@ if numID == 0 and numPP == 0 and numD == 0:
      #print("탐지된 개인정보가 없습니다.")
 
 print(result)
-        
+'''       
 
 
 

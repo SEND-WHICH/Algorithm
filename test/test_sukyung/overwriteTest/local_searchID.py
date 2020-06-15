@@ -49,11 +49,11 @@ with open(fname, 'r', encoding='UTF8') as f:
 
         #여권번호 패턴 탐지
         patternPP = re.compile("(?P<Ptype>[a-zA-Z])\d{7}")
-        msgPP = patternID.search(Word)
+        msgPP = patternPP.search(Word)
 
         #운전면허번호 패턴 탐지
         patternD = re.compile("(\d{2})[-]\d{2}[-]\d{6}[-]\d{2}")
-        msgD = patternID.search(Word)
+        msgD = patternD.search(Word)
 
 
         # 주민번호 패턴일 때

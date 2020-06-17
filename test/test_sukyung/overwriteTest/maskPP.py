@@ -18,11 +18,11 @@ with open('./views/example.json') as json_file:
     print(fileType)
 
 # 복사
-shutil.copy(fileTitle+'.'+fileType, fileTitle + '(masked).' + fileType)
+shutil.copy(fileTitle+'.'+fileType, fileTitle + '_masked.' + fileType)
 
 
 # 복사한 파일 이름을 매개변수에 저장     
-fname = fileTitle + '(masked).' + fileType
+fname = fileTitle + '_masked.' + fileType
 
 # 읽기 모드에서 파일 열고 내용을 목록으로 복사하기
 with open(fname, 'r', encoding='UTF8') as f:
